@@ -1,0 +1,11 @@
+@import './normalize.css';
+@import 'tailwindcss';
+
+:root {
+  --color-one: #051F20;
+  --color-second: #0B2B26;
+  --color-there: #163832;
+  --color-four: #235347;
+  --color-five: #8EB69B;
+  --color-six: #DAF1DE;
+}
