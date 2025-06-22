@@ -1,14 +1,6 @@
-# ./
+# Expense Manager App
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
+Expense Manager is your smart assistant in the world of money. Track expenses, analyze habits and achieve goals in one intuitive app. Start saving today!
 
 ## Project Setup
 
