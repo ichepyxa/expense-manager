@@ -1,23 +1,15 @@
 const state = {
   balance: 0,
-  income: 0,
-  expenses: 0,
   operations: [],
   accumulations: 0
 }
 
 const mutations = {
-  ADD_TO_BALANCE(state, money) {
-    state.balance += money
+  ADD_TO_BALANCE(state, amount) {
+    state.balance += amount
   },
-  SUBTRACT_FROM_BALANCE(state, money) {
-    state.balance -= money
-  },
-  ADD_INCOME(state, money) {
-    state.income += money
-  },
-  ADD_EXPENSES(state, money) {
-    state.expenses += money
+  SUBTRACT_FROM_BALANCE(state, amount) {
+    state.balance -= amount
   },
   ADD_OPERATION(state, operation) {
     state.operations = [...state.operations, operation]
@@ -32,17 +24,32 @@ const mutations = {
       : operation
     )
   },
-  ADD_TO_ACCUMULATIONS(state, money) {
-    state.accumulations += money
+  ADD_TO_ACCUMULATIONS(state, amount) {
+    state.accumulations += amount
   },
-  SUBTRACT_FROM_ACCUMULATIONS(state, money) {
-    state.accumulations -= money
+  SUBTRACT_FROM_ACCUMULATIONS(state, amount) {
+    state.accumulations -= amount
   }
 }
 
 const actions = {
   addOperation({ commit }, operation) {
+    commit("ADD_OPERATION", operation)
     
+    switch (operation.type) {
+      case "INCOME":
+        commit("ADD_TO_BALANCE", operation.amount)
+      case "EXPENSES":
+        commit("SUBTRACT_FROM_BALANCE", operation.amount)
+      case "ACCUMULATION":
+        commit("ADD_TO_ACCUMULATIONS", operation.amount)
+        commit("SUBTRACT_FROM_BALANCE", operation.amount)
+
+      case "WITHDRAW_ACCUMULATION":
+        commit("SUBTRACT_FROM_ACCUMULATIONS", operation.amount)
+        commit("ADD_TO_BALANCE", operation.amount)
+
+    }
   }
 };
 
