@@ -17,7 +17,8 @@
         <a v-for="item in navigation" :key="item.name" :href="item.href" class="text-sm/6 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white px-5 py-3 transition-all duration-200 rounded-xl">{{ item.name }}</a>
       </div>
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <RouterLink :to="{ name: 'LoginPage' }" class="text-sm/6 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white px-5 py-3 transition-all duration-200 rounded-xl">Войти <span aria-hidden="true">&rarr;</span></RouterLink>
+        <RouterLink v-if="isAuthenticated" :to="{ name: 'DashboardPage' }" class="text-sm/6 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white px-5 py-3 transition-all duration-200 rounded-xl">Войти <span aria-hidden="true">&rarr;</span></RouterLink>
+        <RouterLink v-if="!isAuthenticated" :to="{ name: 'LoginPage' }" class="text-sm/6 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white px-5 py-3 transition-all duration-200 rounded-xl">Войти <span aria-hidden="true">&rarr;</span></RouterLink>
       </div>
     </nav>
     <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -39,7 +40,8 @@
               <a v-for="item in navigation" :key="item.name" :href="item.href" class="-mx-3 block rounded-xl px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white transition-all duration-200">{{ item.name }}</a>
             </div>
             <div class="py-6">
-              <RouterLink :to="{ name: 'LoginPage' }" class="-mx-3 block rounded-xl px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white transition-all duration-200">Войти</RouterLink>
+              <RouterLink v-if="isAuthenticated" :to="{ name: 'DashboardPage' }" class="-mx-3 block rounded-xl px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white transition-all duration-200">Войти</RouterLink>
+              <RouterLink v-if="!isAuthenticated" :to="{ name: 'LoginPage' }" class="-mx-3 block rounded-xl px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white transition-all duration-200">Войти</RouterLink>
             </div>
           </div>
         </div>
@@ -54,6 +56,11 @@
   import { RouterLink } from 'vue-router'
   import { ref } from 'vue'
   import LogoWithText from './LogoWithText.vue'
+  import { useStore } from 'vuex'
+
+  const store = useStore()
+
+  const isAuthenticated = store.getters["user/isAuthenticated"]
 
   const navigation = [
     { name: 'Преимущества', href: '#advantages' },
@@ -61,6 +68,7 @@
     { name: 'Отзывы', href: '#' },
     { name: 'Контакты', href: '#' },
   ]
+  
 
   const mobileMenuOpen = ref(false)
 </script>

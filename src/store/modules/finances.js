@@ -44,11 +44,9 @@ const actions = {
       case "ACCUMULATION":
         commit("ADD_TO_ACCUMULATIONS", operation.amount)
         commit("SUBTRACT_FROM_BALANCE", operation.amount)
-
       case "WITHDRAW_ACCUMULATION":
         commit("SUBTRACT_FROM_ACCUMULATIONS", operation.amount)
         commit("ADD_TO_BALANCE", operation.amount)
-
     }
   }
 };

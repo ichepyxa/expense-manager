@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <h1>Dashboard page</h1>
-  </div>
+  <Sidebar />
 </template>
 
 <script setup>
+  import Sidebar from '@/components/Sidebar.vue';
+
 
 </script>
