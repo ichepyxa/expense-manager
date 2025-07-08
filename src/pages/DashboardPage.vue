@@ -15,7 +15,19 @@
             </button>
           </div>
         </div>
-        <div class="w-full mt-15">
+        <div class="bg-gray-200 rounded-4xl p-5 h-48 max-w-96 w-full relative mt-5">
+          <p class="font-semibold text-sm text-gray-700">Накопления</p>
+          <div class="text-4xl mt-5">{{ accumulations }}<span class="text-emerald-600 ml-2">BYN</span></div>
+          <div class="flex justify-end items-center w-full mt-6 gap-x-3">
+            <button class="flex gap-x-3 items-center border-gray-500 text-gray-500 border-1 rounded-xl cursor-pointer py-2 px-3 hover:border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300">
+              <MinusIcon class="size-6" />
+            </button>
+            <button class="flex gap-x-3 items-center border-gray-500 text-gray-500 border-1 rounded-xl cursor-pointer py-2 px-3 hover:border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300">
+              <PlusIcon class="size-6" />
+            </button>
+          </div>
+        </div>
+        <div class="w-full mt-7">
           <h3 class="text-md font-semibold text-emerald-600 pb-5 border-b-2 border-gray-200">Последние операции</h3>
           <ul>
             <template v-if="operations && operations.length > 0">
@@ -58,18 +70,7 @@
 
       </div>
       <div class="w-full lg:w-1/2">
-        <div class="bg-gray-200 rounded-4xl p-5 h-48 max-w-96 w-full relative">
-          <p class="font-semibold text-sm text-gray-700">Накопления</p>
-          <div class="text-4xl mt-5">{{ accumulations }}<span class="text-emerald-600 ml-2">BYN</span></div>
-          <div class="flex justify-end items-center w-full mt-6 gap-x-3">
-            <button class="flex gap-x-3 items-center border-gray-500 text-gray-500 border-1 rounded-xl cursor-pointer py-2 px-3 hover:border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300">
-              <MinusIcon class="size-6" />
-            </button>
-            <button class="flex gap-x-3 items-center border-gray-500 text-gray-500 border-1 rounded-xl cursor-pointer py-2 px-3 hover:border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300">
-              <PlusIcon class="size-6" />
-            </button>
-          </div>
-        </div>
+        <Line :data="chartData" :options="chartOptions" />
       </div>
     </main>
   </div>
@@ -79,6 +80,48 @@
   import Sidebar from '@/components/Sidebar.vue'
   import { ArrowRightIcon, MinusIcon, PlusIcon } from '@heroicons/vue/24/outline'
   import { useStore } from 'vuex'
+
+  import { Line } from 'vue-chartjs'
+  import {Chart as ChartJS, Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale, Filler} from 'chart.js'
+  import { styles } from '@/config/styles'
+
+  ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale, Filler)
+  const chartData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [ 
+      {
+        label: 'Looping tension',
+        data: [65, 59, 80, 81, 26, 55, 40]
+      }
+    ],
+  }
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "right"
+      }
+    },
+    elements: {
+      line: {
+        tension: 0.25,
+        borderWidth: 2,
+        backgroundColor: (ctx) => {
+          const canvas = ctx.chart.ctx;
+          const gradient = canvas.createLinearGradient(0,0,0,160);
+
+          gradient.addColorStop(0, styles.primaryColor);
+          gradient.addColorStop(0.9, "oklch(59.6% 0.145 163.225 / 0.05)");
+
+          return gradient;
+        },
+        borderJoinStyle: "round",
+        borderColor: styles.primaryColor,
+        fill: true
+      }
+    }
+  }
 
   const store = useStore()
   
