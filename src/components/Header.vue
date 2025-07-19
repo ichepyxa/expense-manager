@@ -59,8 +59,10 @@
   import { useStore } from 'vuex'
 
   const store = useStore()
-
+  
   const isAuthenticated = store.getters["user/isAuthenticated"]
+
+  const mobileMenuOpen = ref(false)
 
   const navigation = [
     { name: 'Преимущества', href: '#advantages' },
@@ -68,7 +70,4 @@
     { name: 'Отзывы', href: '#' },
     { name: 'Контакты', href: '#' },
   ]
-  
-
-  const mobileMenuOpen = ref(false)
 </script>

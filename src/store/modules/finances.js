@@ -1,7 +1,7 @@
 const state = {
   balance: 0,
   operations: [],
-  accumulations: 1000
+  accumulations: 0
 }
 
 const mutations = {

@@ -34,7 +34,7 @@ const actions = {
             email: credentials.email,
             localSave: false
           });
-        }, 1000)
+        }, 3000)
       });
       
       commit('SET_USER', response)
@@ -68,6 +68,11 @@ const actions = {
         localSave: true
       })
     }
+  },
+
+  localLogout({ commit }) {
+    localStorage.removeItem("local_save_mode");
+    commit('CLEAR_USER');
   },
 
   logout({ commit }) {
