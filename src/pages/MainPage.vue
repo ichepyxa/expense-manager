@@ -10,7 +10,8 @@
         <h1 class="text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-6xl">Контролируйте финансы без усилий!</h1>
         <p class="mt-8 text-lg font-medium text-pretty text-gray-500 sm:text-xl/8">Expense Manager — ваш умный помощник в мире денег. Учет расходов, анализ привычек и достижение целей в одном интуитивном приложении. Начните экономить уже сегодня!</p>
         <div class="mt-10">
-          <RouterLink :to="{ name: 'LoginPage' }" class="text-sm/6 font-semibold transition-all duration-200 text-white bg-emerald-600 hover:bg-emerald-700 py-3 px-7 rounded-xl">Попробовать бесплатно <span aria-hidden="true">→</span></RouterLink>
+          <RouterLink v-if="isAuthenticated" :to="{ name: 'DashboardPage' }" class="text-sm/6 font-semibold transition-all duration-200 text-white bg-emerald-600 hover:bg-emerald-700 py-3 px-7 rounded-xl">Попробовать бесплатно <span aria-hidden="true">→</span></RouterLink>
+          <RouterLink v-if="!isAuthenticated" :to="{ name: 'LoginPage' }" class="text-sm/6 font-semibold transition-all duration-200 text-white bg-emerald-600 hover:bg-emerald-700 py-3 px-7 rounded-xl">Попробовать бесплатно <span aria-hidden="true">→</span></RouterLink>
         </div>
       </div>
     </div>
@@ -97,5 +98,10 @@
 </template>
 
 <script setup>
-  import Header from '@/components/Header.vue';
+  import Header from '@/components/Header.vue'
+  import { useStore } from 'vuex'
+
+  const store = useStore()
+
+  const isAuthenticated = store.getters["user/isAuthenticated"]
 </script>

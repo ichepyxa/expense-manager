@@ -33,22 +33,36 @@ const mutations = {
 }
 
 const actions = {
-  addOperation({ commit }, operation) {
+  addBalance({ commit }, amount) {
+    commit("ADD_TO_BALANCE", amount)
+  },
+  subtractBalance({ commit }, amount) {
+    commit("SUBTRACT_FROM_BALANCE", amount)
+  },
+  addAccumulations({ commit }, amount) {
+    commit("ADD_TO_ACCUMULATIONS", amount)
+  },
+  subtractAccumulations({ commit }, amount) {
+    commit("SUBTRACT_FROM_ACCUMULATIONS", amount)
+  },
+  addOperation({ commit, dispatch }, operation) {
     commit("ADD_OPERATION", operation)
     
     switch (operation.type) {
       case "INCOME":
-        commit("ADD_TO_BALANCE", operation.amount)
+        dispatch("addBalance", operation.amount)
+        break
       case "EXPENSES":
-        commit("SUBTRACT_FROM_BALANCE", operation.amount)
+        dispatch("subtractBalance", operation.amount)
+        break
       case "ACCUMULATION":
-        commit("ADD_TO_ACCUMULATIONS", operation.amount)
-        commit("SUBTRACT_FROM_BALANCE", operation.amount)
-
+        dispatch("addAccumulations", operation.amount)
+        dispatch("subtractBalance", operation.amount)
+        break
       case "WITHDRAW_ACCUMULATION":
-        commit("SUBTRACT_FROM_ACCUMULATIONS", operation.amount)
-        commit("ADD_TO_BALANCE", operation.amount)
-
+        dispatch("subtractAccumulations", operation.amount)
+        dispatch("addBalance", operation.amount)
+        break
     }
   }
 };
@@ -57,7 +71,8 @@ const getters = {
   balance: state => state.balance,
   income: state => state.income,
   expenses: state => state.expenses,
-  operations: state => state.operations
+  operations: state => state.operations,
+  accumulations: state => state.accumulations,
 };
 
 export default {
