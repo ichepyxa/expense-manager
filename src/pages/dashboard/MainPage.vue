@@ -1,10 +1,9 @@
 <template>
-  <div class="w-full relative">
-    <Sidebar />
-    <main class="lg:ml-72 p-8 z-10 relative lg:flex justify-around lg:gap-x-5">
-      <div class="w-full lg:w-1/2 xl:w-1/3">
-        <div class="flex gap-y-5 flex-col sm:gap-x-5 sm:flex-row lg:flex-col justify-around items-center">
-          <div class="border-1 border-gray-500 shadow-lg rounded-2xl p-5 h-48 max-w-96 w-full relative">
+  <DashboardLayout main-classes="lg:flex justify-around lg:gap-x-5">
+    <div class="w-full lg:w-5/12 xl:w-2/5">
+      <div class="flex gap-y-5 flex-col sm:gap-x-5 sm:flex-row lg:flex-col justify-around items-center">
+        <Transition name="block" appear>
+          <div class="border-1 border-gray-500 shadow-lg rounded-2xl p-5 h-48 w-full relative">
             <h3 class="font-semibold text-sm text-gray-700">Текущий баланс</h3>
             <div class="text-4xl mt-5">{{ new Intl.NumberFormat('ru-RU').format(balance) }}<span class="text-emerald-600 ml-2">BYN</span></div>
             <div class="flex justify-end items-center w-full mt-6 gap-x-3">
@@ -16,7 +15,9 @@
               </button>
             </div>
           </div>
-          <div class="border-1 border-gray-500 shadow-lg rounded-2xl p-5 h-48 max-w-96 w-full relative">
+        </Transition>
+        <Transition name="block" appear>
+          <div class="border-1 border-gray-500 shadow-lg rounded-2xl p-5 h-48 w-full relative">
             <h3 class="font-semibold text-sm text-gray-700">Накопления</h3>
             <div class="text-4xl mt-5">{{ new Intl.NumberFormat('ru-RU').format(accumulations) }}<span class="text-emerald-600 ml-2">BYN</span></div>
             <div class="flex justify-end items-center w-full mt-6 gap-x-3">
@@ -28,7 +29,10 @@
               </button>
             </div>
           </div>
-        </div>
+        </Transition>
+      </div>
+
+      <Transition name="block" appear>
         <div class="w-full mt-7 border-1 border-gray-500 rounded-2xl p-5 shadow-lg">
           <h3 class="text-md font-semibold text-emerald-600 pb-5 border-b-2 border-gray-200">Последние операции</h3>
           <ul class="w-full">
@@ -69,26 +73,32 @@
             </template>
           </ul>
         </div>
+      </Transition>
 
-      </div>
-      <div class="relative w-full lg:w-1/2">
+    </div>
+    <div class="relative w-full lg:w-7/12">
+      <Transition name="block" appear>
         <div class="hidden sm:block mt-7 lg:mt-0 border-1 border-gray-500 rounded-2xl p-5 shadow-lg">
           <h3 class="text-md font-semibold text-emerald-600 mb-2">Расходы за месяц</h3>
           <ChartDasboardPage />
         </div>
+      </Transition>
 
-        <div class="mt-5">
-          <h3 class="text-md font-semibold text-emerald-600 mb-2">Основные расходы за месяц</h3>
-          
-        </div>
+      <div class="mt-7">
+        <h3 class="text-md font-semibold text-emerald-600 mb-2">Рекомендации по экономии</h3>
+        <TransitionGroup name="list" class="w-full flex flex-col gap-y-5" tag="ul" appear>
+          <li v-for="recommendation in recommendations" :key="recommendation" class="w-full border-1 border-gray-300 rounded-lg p-3 list-inside list-decimal">
+            {{ recommendation }}
+          </li>
+        </TransitionGroup>
       </div>
-    </main>
-  </div>
+    </div>
+  </DashboardLayout>
 </template>
 
 <script setup>
   import ChartDasboardPage from '@/components/ChartDasboardPage.vue'
-  import Sidebar from '@/components/Sidebar.vue'
+  import DashboardLayout from '@/layouts/DashboardLayout.vue'
   import { ArrowRightIcon, MinusIcon, PlusIcon } from '@heroicons/vue/24/outline'
   import { useStore } from 'vuex'
 
@@ -97,4 +107,11 @@
   const balance = store.getters["finances/balance"]
   const accumulations = store.getters["finances/accumulations"]
   const operations = store.getters["finances/operations"]
+
+  const recommendations = [
+    "Составляйте и Придерживайтесь Бюджета",
+    "Боритесь с Импульсивными Покупками",
+    "Оптимизируйте Постоянные Расходы",
+    "'Платите Себе Сначала' и Автоматизируйте Сбережения"
+  ]
 </script>

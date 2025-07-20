@@ -1,6 +1,6 @@
 <template>
   <div class="w-full lg:block border-b-1 border-gray-100 shadow lg:border-0 lg:shadow-none z-40">
-    <div class="w-2xs hidden lg:flex flex-col fixed border-r-1 border-gray-100 h-screen">
+    <div class="w-56 xl:w-2xs hidden lg:flex flex-col fixed border-r-1 border-gray-100 h-screen">
       <div class="flex px-6 overflow-y-auto flex-col grow">
         <div class="flex shrink-0 items-center h-20">
           <Logo class="w-auto h-20" />
@@ -22,7 +22,7 @@
             </li>
             <li class="mt-auto -mx-2 flex flex-col gap-y-2 mb-2">
               <button v-on:click="handleLogout"
-                class="flex items-center p-2 gap-x-3 transition-all duration-300 text-black font-semibold text-sm rounded-md hover:bg-emerald-600 hover:text-white">
+                class="cursor-pointer flex items-center p-2 gap-x-3 transition-all duration-300 text-black font-semibold text-sm rounded-md hover:bg-emerald-600 hover:text-white">
                 <ArrowRightEndOnRectangleIcon class="size-6" />
                 Выйти
               </button>
@@ -68,7 +68,7 @@
             </div>
             <div class="py-6">
               <button v-on:click="handleLogout"
-                class="-mx-3 flex items-center transition-all duraction-300 gap-x-3 rounded-xl px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white">
+                class="cursor-pointer -mx-3 flex items-center transition-all duraction-300 gap-x-3 rounded-xl px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-emerald-600 hover:shadow-lg hover:text-white">
                 <ArrowRightEndOnRectangleIcon class="size-6" />
                 <span>Выйти</span>
               </button>
@@ -108,5 +108,7 @@
     } else {
       store.dispatch("user/logout")
     }
+
+    router.push("/")
   }
 </script>
