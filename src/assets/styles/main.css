@@ -3,3 +3,18 @@
 html {
   scroll-behavior: smooth;
 }
+
+.list-enter-active,
+.list-leave-active,
+.block-enter-active,
+.block-leave-active {
+  transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to,
+.block-enter-from,
+.block-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}

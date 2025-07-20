@@ -1,8 +1,11 @@
 <template>
-  <Sidebar />
-  <main>Operations page</main>
+  <DashboardLayout>
+    <p>Operations page</p>
+  </DashboardLayout>
 </template>
 
 <script setup>
-  import Sidebar from '@/components/Sidebar.vue';
+  import DashboardLayout from '@/layouts/DashboardLayout.vue';
+
+
 </script>
