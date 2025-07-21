@@ -1,6 +1,21 @@
 const state = {
   balance: 0,
-  operations: [],
+  operations: [
+    {
+      id: 214,
+      type: "INCOME",
+      amount: 1000,
+      typePurchase: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, minima. Sit obcaecati tenetur explicabo, veritatis quaerat laborum ex cumque laboriosam molestias eius autem quo sint, qui excepturi sunt beatae nemo?",
+      date: "07.06.2025 18:40"
+    },
+    {
+      id: 214,
+      type: "EXPENSES",
+      amount: 1000,
+      typePurchase: "Покупка машины",
+      date: "07.06.2025 18:40"
+    },
+  ],
   accumulations: 0
 }
 

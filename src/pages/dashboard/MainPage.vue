@@ -44,18 +44,18 @@
                 <div v-else class="w-4 h-4 bg-gray-400 rounded-full"></div>
                 
                 <div class="ml-2">
-                  <p class="text-black text-md">{{ !operation.typePurchase ? "Накопления" : operation.typePurchase }}</p>
-                  <p class="text-gray-400 text-sm font-semibold">07.06.2025 18:40</p>
+                  <p class="text-black text-md">{{ !operation.typePurchase ? "Накопления" : operation.typePurchase.substring(0, 30) }}</p>
+                  <p class="text-gray-400 text-sm font-semibold">{{ operation.date }}</p>
                 </div>
 
                 <div v-if="operation.type == 'INCOME'" class="flex items-center ml-auto text-emerald-600">
                   <PlusIcon class="size-4" />
-                  <span>{{ operation.amount }}</span>
+                  <span class="ml-1">{{ operation.amount }}</span>
                   <span class="ml-1">BYN</span>
                 </div>
                 <div v-else-if="operation.type == 'EXPENSES'" class="flex items-center ml-auto text-red-600">
                   <MinusIcon class="size-4" />
-                  <span>{{ operation.amount }}</span>
+                  <span class="ml-1">{{ operation.amount }}</span>
                   <span class="ml-1">BYN</span>
                 </div>
                 <div v-else class="flex items-center ml-auto text-black">
