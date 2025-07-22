@@ -1,5 +1,5 @@
 <template>
-  <DashboardLayout main-classes="lg:flex justify-around lg:gap-x-5">
+  <DashboardLayout main-classes="p-8 lg:flex justify-around lg:gap-x-5">
     <div class="w-full lg:w-5/12 xl:w-2/5">
       <div class="flex gap-y-5 flex-col sm:gap-x-5 sm:flex-row lg:flex-col justify-around items-center">
         <Transition name="block" appear>
@@ -37,14 +37,14 @@
           <h3 class="text-md font-semibold text-emerald-600 pb-5 border-b-2 border-gray-200">Последние операции</h3>
           <ul class="w-full">
             <template v-if="operations && operations.length > 0">
-              <li class="overflow-hidden cursor-pointer border-transparent hover:border-gray-200 transition-all duration-300 py-3 flex items-center w-full group" v-for="operation in operations.slice(-3)">
+              <RouterLink v-for="operation in operations.slice(-3)" :key="operation.id" :to="{ name: 'DashboardOperationPage', params: { id: operation.id } }" class="overflow-hidden cursor-pointer border-transparent hover:border-gray-200 transition-all duration-300 py-3 flex items-center w-full group">
                 
                 <div v-if="operation.type == 'INCOME'" class="w-4 h-4 bg-emerald-600 rounded-full"></div>
                 <div v-else-if="operation.type == 'EXPENSES'" class="w-4 h-4 bg-red-600 rounded-full"></div>
                 <div v-else class="w-4 h-4 bg-gray-400 rounded-full"></div>
                 
                 <div class="ml-2">
-                  <p class="text-black text-md">{{ !operation.typePurchase ? "Накопления" : operation.typePurchase.substring(0, 30) }}</p>
+                  <p class="text-black text-md">{{ !operation.typePurchase ? "Накопления" : operation.typePurchase.substring(0, 20) }}</p>
                   <p class="text-gray-400 text-sm font-semibold">{{ operation.date }}</p>
                 </div>
 
@@ -66,7 +66,7 @@
                 <div class="ml-3 -mr-6 right-arrow group-hover:mr-1 transition-all duration-300 hidden sm:block">
                   <ArrowRightIcon class="size-5" />
                 </div>
-              </li>
+              </RouterLink>
             </template>
             <template v-else>
               <div class="text-center my-5">Операции отсутствуют</div>
@@ -100,6 +100,7 @@
   import ChartDasboardPage from '@/components/ChartDasboardPage.vue'
   import DashboardLayout from '@/layouts/DashboardLayout.vue'
   import { ArrowRightIcon, MinusIcon, PlusIcon } from '@heroicons/vue/24/outline'
+  import { RouterLink } from 'vue-router'
   import { useStore } from 'vuex'
 
   const store = useStore()

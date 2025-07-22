@@ -2,7 +2,7 @@ const state = {
   balance: 0,
   operations: [
     {
-      id: 214,
+      id: 216,
       type: "INCOME",
       amount: 1000,
       typePurchase: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Distinctio, minima. Sit obcaecati tenetur explicabo, veritatis quaerat laborum ex cumque laboriosam molestias eius autem quo sint, qui excepturi sunt beatae nemo?",
@@ -87,6 +87,9 @@ const getters = {
   income: state => state.income,
   expenses: state => state.expenses,
   operations: state => state.operations,
+  operation: (state) => (id) => {
+    return state.operations.find(operation => operation.id == id)
+  },
   accumulations: state => state.accumulations,
 };
 
